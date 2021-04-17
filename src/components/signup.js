@@ -6,11 +6,14 @@ export default class SignUp extends Component {
         super(props);
 
         this.state = {
-            name: "",
-            surname: "",
-            username: "",
-            email: "",
-            password: ""
+            details: {
+                name: "",
+                surname: "",
+                username: "",
+                email: "",
+                password: ""
+            },
+            errorMessage: null
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,38 +23,55 @@ export default class SignUp extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        console.log(this.state);
 
         var formBody = []
 
-        for (var data in this.state) {
-            var encodedKey = encodeURIComponent(data);
-            var encodedValue = encodeURIComponent(this.state[data]);
-            formBody.push(encodedKey + "=" + encodedValue);
+        for (var data in this.state.details) {
+            formBody.push(data + "=" + this.state[data]);
         }
 
         formBody = formBody.join("&");
-        console.log(formBody);
 
-        /*fetch('https://example.com/login', {
+        fetch('http://localhost:8000/api/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
-        body: formBody
-})*/
+            body: formBody
+        }).then(response => {
+            if (response.ok) {
+                this.props.changeLoginStatus(document.cookie.split('=')[1]);
+            }
+            else {
+                let getJson = (response) => {
+                    return response.json();
+                }
+                getJson(response).then((asJson) => {
+                    this.setState({ errorMessage: asJson.msg });
+                })
+
+            }
+        })
 
     }
 
     handleChange(event) {
         var cname = event.target.className;
-        this.setState({ [cname]: event.target.value })
+        this.setState({ [cname.split(" ")[0]]: event.target.value })
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="form">
                 <h3>Sign Up</h3>
+
+                {
+                    this.state.errorMessage ?
+                        <div className="form-group">
+                            <label>{this.state.errorMessage}</label>
+                        </div>
+                        : null
+                }
 
                 <div className="form-group">
                     <label>First name</label>
@@ -80,7 +100,7 @@ export default class SignUp extends Component {
 
                 <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
                 <p className="forgot-password text-right">
-                    Already registered <a href="/login">sign in?</a>
+                    Already registered ? <a href="/login">Sign In</a>
                 </p>
             </form>
         );
