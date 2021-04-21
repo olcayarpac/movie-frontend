@@ -14,7 +14,7 @@ export default class App extends Component {
 
     this.state = {
       authenticated: false,
-      userid: null
+      userid: 123456
     }
 
 
@@ -32,7 +32,7 @@ export default class App extends Component {
       })
   }
 
-  forDebug(){
+  forDebug() {
     console.log(this.state)
   }
 
@@ -72,35 +72,43 @@ export default class App extends Component {
           </div>
         </nav>
 
-        <div className="auth-wrapper">
-          <div className="auth-inner">
-            <Switch>
-              <Route exact path="/">
-                {
-                  this.state.authenticated ? <Homepage userId={this.state.userId} /> : <Redirect push to="/signup" />
-                }
-              </Route>
 
-              <Route path="/login">
-                {!
-                  this.state.authenticated ? <Login changeLoginStatus={this.changeLoginStatus} /> : <Redirect push to="/" />
-                }
-              </Route>
+        <Switch>
+          <Route exact path="/">
+            {
+              this.state.authenticated ? <Homepage userId={this.state.userId} /> : <Redirect push to="/signup" />
+            }
+          </Route>
 
-              <Route path="/signup">
-                {
-                  !this.state.authenticated ? <SignUp changeLoginStatus={this.changeLoginStatus} /> : <Redirect push to="/" />
-                }
-              </Route>
+          <Route path="/login">
+            {
+              !this.state.authenticated ?
+                <div className="auth-wrapper">
+                  <div className="auth-inner">
+                    <Login changeLoginStatus={this.changeLoginStatus} />
+                  </div>
+                </div> : <Redirect push to="/" />
+            }
+          </Route>
 
-              <Route path="/account">
-                {
-                  this.state.authenticated ? <Account userid={this.state.userid}/> : <Redirect push to="/login" />
-                }
-              </Route>
-            </Switch>
-          </div>
-        </div>
+          <Route path="/signup">
+            {
+              !this.state.authenticated ?
+                <div className="auth-wrapper">
+                  <div className="auth-inner">
+                    <SignUp changeLoginStatus={this.changeLoginStatus} />
+                  </div>
+                </div> : <Redirect push to="/" />
+            }
+          </Route>
+
+          <Route path="/account">
+            {
+              this.state.authenticated ? <Account userid={this.state.userid} /> : <Redirect push to="/login" />
+            }
+          </Route>
+        </Switch>
+
       </div></Router>
     );
   }

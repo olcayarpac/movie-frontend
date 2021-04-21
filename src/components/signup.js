@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+// TODO: go to homepage after sign up
+
+
 export default class SignUp extends Component {
 
     constructor(props) {

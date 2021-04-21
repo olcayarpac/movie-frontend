@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import SearchBox from "./searchBox";
 
-export default class Login extends Component {
+export default class Homepage extends Component {
     constructor(props) {
         super(props);
 
@@ -15,15 +16,13 @@ export default class Login extends Component {
 
 
     checkAuth() {
-
-        console.log(this.state.imgurl);
+        /*
         const options = {
             method: 'GET',
             url: 'https://movie-database-imdb-alternative.p.rapidapi.com/',
             params: { i: 'tt4154796', r: 'json' },
             headers: {
-                'x-rapidapi-key': 'cdfd6ae0bamshab670431d96d5ffp19e3a4jsn0ace9484330a',
-                'x-rapidapi-host': 'movie-database-imdb-alternative.p.rapidapi.com'
+
             }
         };
 
@@ -32,7 +31,7 @@ export default class Login extends Component {
         }).catch( (error) => {
             console.error(error);
         });
-        
+        */
     }
 
 
@@ -41,7 +40,8 @@ export default class Login extends Component {
         return (
             <div>
                 <h1>HOMEPAGE</h1>
-                <img alt="Diriliş Poster" title="Diriliş Poster" src={this.state.imgurl}></img>
+                <SearchBox />
+                
             </div>
         );
     }
