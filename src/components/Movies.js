@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "./movieCard.css";
+import "./movies.css";
 
-export default class movieCard extends Component {
+export default class Movies extends Component {
     constructor(props) {
         super(props);
 
@@ -46,10 +46,12 @@ export default class movieCard extends Component {
     render() {
         return (
             <div className="movie-card-wrapper">
-                <div className="recInfo">Similar to {this.state.movieId}</div>
+
+
+
                 {this.state.movies.map(item => (
-                    <li className="posterLi" key={item.movieid}>
-                        <img className="poster" title="hover" onClick={this.goMoviePage} id={item.movieid} alt={item.movieid} src={item.posterurl} ></img>
+                    <li key={item.movieid}>
+                        <img className="poster" onClick={this.goMoviePage} id={item.movieid} alt={item.movieid} src={item.posterurl} ></img>
                     </li>
                 ))}
 

@@ -1,0 +1,32 @@
+
+.movie-card-wrapper{
+	width: 60%;
+	margin-left: 20%;
+	margin-top: 10px;
+}
+
+.posterLi
+{    
+    display:inline;   
+}
+
+.poster {
+	width: 20%;
+	position: relative;
+	transition: transform 0.5s;
+	margin-top: 15px;
+
+}
+
+
+.poster:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+	z-index: 5;
+}
+
+.poster:hover .overlay {
+	opacity: 1;
+}
+
+

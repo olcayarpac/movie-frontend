@@ -42,13 +42,17 @@ export default class SignUp extends Component {
             },
             body: formBody
         }).then(response => {
+
+            let getJson = (response) => {
+                return response.json();
+            }
+
             if (response.ok) {
-                this.props.changeLoginStatus(document.cookie.split('=')[1]);
+                getJson(response).then((asJson) => {
+                    this.props.changeLoginStatus(asJson.id, this.state.username);
+                })
             }
             else {
-                let getJson = (response) => {
-                    return response.json();
-                }
                 getJson(response).then((asJson) => {
                     this.setState({ errorMessage: asJson.msg });
                 })

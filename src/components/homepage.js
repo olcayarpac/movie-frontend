@@ -15,6 +15,7 @@ export default class Homepage extends Component {
     }
 
 
+    // check login status by using cookies
     checkAuth() {
         /*
         const options = {

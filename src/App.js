@@ -6,6 +6,7 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import Homepage from "./components/homepage";
 import Account from "./components/account";
+import MovieCard from "./components/movieCard";
 
 export default class App extends Component {
 
@@ -13,7 +14,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      authenticated: false,
+      authenticated: true,
       userid: 123456
     }
 
@@ -72,44 +73,51 @@ export default class App extends Component {
           </div>
         </nav>
 
+        <div className="content">
 
-        <Switch>
-          <Route exact path="/">
-            {
-              this.state.authenticated ? <Homepage userId={this.state.userId} /> : <Redirect push to="/signup" />
-            }
-          </Route>
+          <Switch>
+            <Route exact path="/">
+              {
+                this.state.authenticated ? <Homepage userId={this.state.userId} /> : <Redirect push to="/signup" />
+              }
+            </Route>
 
-          <Route path="/login">
-            {
-              !this.state.authenticated ?
-                <div className="auth-wrapper">
-                  <div className="auth-inner">
-                    <Login changeLoginStatus={this.changeLoginStatus} />
-                  </div>
-                </div> : <Redirect push to="/" />
-            }
-          </Route>
+            <Route path="/login">
+              {
+                !this.state.authenticated ?
+                  <div className="auth-wrapper">
+                    <div className="auth-inner">
+                      <Login changeLoginStatus={this.changeLoginStatus} />
+                    </div>
+                  </div> : <Redirect push to="/" />
+              }
+            </Route>
 
-          <Route path="/signup">
-            {
-              !this.state.authenticated ?
-                <div className="auth-wrapper">
-                  <div className="auth-inner">
-                    <SignUp changeLoginStatus={this.changeLoginStatus} />
-                  </div>
-                </div> : <Redirect push to="/" />
-            }
-          </Route>
+            <Route path="/signup">
+              {
+                !this.state.authenticated ?
+                  <div className="auth-wrapper">
+                    <div className="auth-inner">
+                      <SignUp changeLoginStatus={this.changeLoginStatus} />
+                    </div>
+                  </div> : <Redirect push to="/" />
+              }
+            </Route>
 
-          <Route path="/account">
-            {
-              this.state.authenticated ? <Account userid={this.state.userid} /> : <Redirect push to="/login" />
-            }
-          </Route>
-        </Switch>
+            <Route path="/account">
+              {
+                this.state.authenticated ? <Account userid={this.state.userid} /> : <Redirect push to="/login" />
+              }
+            </Route>
+            <Route path="/recommendations">
+              <MovieCard />
+            </Route>
+          </Switch>
 
-      </div></Router>
+        </div>
+      </div>
+    </Router>
+
     );
   }
 
