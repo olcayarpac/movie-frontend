@@ -40,9 +40,7 @@ export default class Homepage extends Component {
     render() {
         return (
             <div>
-                <h1>HOMEPAGE</h1>
                 <SearchBox />
-                
             </div>
         );
     }

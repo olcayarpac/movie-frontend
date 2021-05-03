@@ -7,6 +7,7 @@ import SignUp from "./components/signup";
 import Homepage from "./components/homepage";
 import Account from "./components/account";
 import MovieCard from "./components/movieCard";
+import MovieDetail from "./components/movieDetail";
 
 export default class App extends Component {
 
@@ -109,9 +110,16 @@ export default class App extends Component {
                 this.state.authenticated ? <Account userid={this.state.userid} /> : <Redirect push to="/login" />
               }
             </Route>
+
             <Route path="/recommendations">
               <MovieCard />
             </Route>
+
+            <Route path="/movieDetail">
+              <MovieDetail />
+            </Route>
+            
+
           </Switch>
 
         </div>

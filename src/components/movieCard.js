@@ -52,8 +52,6 @@ export default class movieCard extends Component {
                         <img className="poster" title="hover" onClick={this.goMoviePage} id={item.movieid} alt={item.movieid} src={item.posterurl} ></img>
                     </li>
                 ))}
-
-
             </div>
         );
     }

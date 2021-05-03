@@ -1,0 +1,68 @@
+body{
+    overflow: hidden;
+}
+
+.movie-page{
+    margin-top: 20px;  
+    width: 80%;
+    margin-left: 10%;
+    background-color: darkcyan;
+}
+
+.detail-poster{
+    float: left;
+    width: 30%;
+    margin-top: 0px;
+}
+
+.right-side{
+    width: 60%;
+    margin-left: 5%;
+    background-color: darkgray;
+    float: left;    
+}
+.star{
+    margin-top: 0px;
+}
+.star>img{
+    margin-top: 0px;
+    height:40px;
+    width: 40px;
+
+}
+.movie-title{
+    margin-top: 50px;
+    background-color: rgb(201, 123, 50);
+    
+
+}
+
+.genres{
+    margin-top: 20px;
+    background-color: rgb(201, 123, 50);
+
+}
+.duration{
+    margin-top: 20px;
+    background-color: rgb(201, 123, 50);
+
+
+}
+.director{
+    margin-top: 20px;
+    background-color: rgb(201, 123, 50);
+
+
+}
+.country{
+    margin-top: 20px;
+    background-color: rgb(201, 123, 50);
+
+
+}
+.year{
+    margin-top: 20px;
+    background-color: rgb(201, 123, 50);
+
+
+}
