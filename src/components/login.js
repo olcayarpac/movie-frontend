@@ -25,7 +25,7 @@ export default class Login extends Component {
         }
 
         formBody = formBody.join("&");
-
+        
         fetch('http://localhost:8000/api/login', {
             method: 'POST',
             headers: {

@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react';
 import React, { Component } from 'react';
-import star1 from "./star.png";
 import "./movieDetail.css";
 import axios from "axios";
-
-
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 
 export default class Moviepage extends Component {
@@ -13,12 +12,35 @@ export default class Moviepage extends Component {
 
         this.state = {
             userid: "607ddaf5ca9c6d3072897f2e",
-            movieid: 791244,
+            movieid: window.location.href.substr(window.location.href.lastIndexOf('/') + 1),
             movie: {
-            }
+                
+            },
+            star: 0,
+
         }
 
         this.getMovieDetails();
+        this.rateMovie = this.rateMovie.bind(this);
+    }
+
+
+    rateMovie(givenStar) {
+        if (givenStar) {
+            var formBody = []
+            formBody.push('userid=' + this.state.userid)
+            formBody.push('movieid=' + this.state.movie._id)
+            formBody.push('star=' + givenStar)
+            formBody = formBody.join("&");
+
+            fetch('http://localhost:8000/api/likeMovie', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                body: formBody
+            }).then(() => this.setState({ star: givenStar }));
+
+
+        }
     }
 
     getMovieDetails() {
@@ -33,7 +55,7 @@ export default class Moviepage extends Component {
         };
 
         axios.request(options).then((response) => {
-            this.setState({ movie: response.data });
+            this.setState({ movie: response.data, star: response.data.star });
         }).catch((error) => {
             console.error(error);
         });
@@ -48,15 +70,26 @@ export default class Moviepage extends Component {
                 <img className="detail-poster" id={this.state.movie.movieId} src={this.state.movie.poster_url}></img>
 
 
+
                 <div className="right-side">
                     <div className="star">
-                        <img src={star1} />
+                        <Box component="fieldset" mb={3} borderColor="transparent">
+                            <Typography component="legend" />
+                            <Rating
+                                name="simple-controlled"
+                                value={this.state.star}
+                                onChange={(event, newValue) => {
+                                    this.rateMovie(newValue);
+                                }}
+                            />
+                        </Box>
 
                     </div>
-                    <div className="movie-title">
-                        {"Title: " + this.state.movie.title}
+                    <div className="title">
+                        {this.state.movie.title + " ( " + this.state.movie.year + " ) "}
 
                     </div>
+
 
                     {
                         /*
@@ -66,25 +99,28 @@ export default class Moviepage extends Component {
                         </div>
                         */
 
-                        }
-                        <div className="duration">
-                            {"Duration: " + this.state.movie.imdb}
-                        </div>
+                    }
+                    <div className="duration">
+                        <h5 style={{ color: 'black' }}>Duration : </h5> {this.state.movie.imdb}
+                    </div>
 
-                    <div className="director">
-                        {" Director: " + this.state.movie.director}
+                    <div >
+                        <h5 style={{ color: 'black' }}>Director : </h5>  {this.state.movie.director}
 
                     </div>
-                    <div className="country">
-                        {" Country: " + this.state.movie.actors}
+                    <div >
+                    <h5 style={{ color: 'black' }}>Actors : </h5> {this.state.movie.actors}
 
                     </div>
-                    <div className="year">
-                        {"Year: " + this.state.movie.year}
 
-                    </div>
-                    <div className="description">
-                        {"Description: " + this.state.movie.description}
+                    {
+                        /*
+                        <div style={{ color: 'red' }}>Description</div>
+                        */
+                    }
+
+                    <div >
+                    <h5 style={{ color: 'black' }}>Description : </h5> { this.state.movie.description}
                     </div>
                 </div>
 
@@ -94,4 +130,3 @@ export default class Moviepage extends Component {
         )
     }
 }
-

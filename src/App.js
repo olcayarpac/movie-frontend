@@ -16,7 +16,7 @@ export default class App extends Component {
 
     this.state = {
       authenticated: true,
-      userid: 123456
+      userid: '607ddaf5ca9c6d3072897f2e'
     }
 
 
@@ -112,7 +112,7 @@ export default class App extends Component {
             </Route>
 
             <Route path="/recommendations">
-              <MovieCard />
+              <MovieCard userid={this.state.userid} />
             </Route>
 
             <Route path="/movieDetail">

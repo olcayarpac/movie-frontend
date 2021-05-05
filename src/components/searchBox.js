@@ -51,7 +51,7 @@ export default class SearchBox extends Component {
     }
 
     goMoviePage(event) {
-        window.open('https://www.imdb.com/title/tt' + event.target.id.padStart(7, '0'));
+        window.location.href=('/movieDetail/'+ event.target.id)
     }
 
     render() {

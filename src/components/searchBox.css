@@ -4,6 +4,7 @@ body{
   }
   
   .searchWrapper{
+    margin-top: 10px;
     background-color: yellow;
     width: 40%;
     position: absolute;
