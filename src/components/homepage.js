@@ -7,6 +7,7 @@ export default class Homepage extends Component {
 
         this.state = {
             username: "",
+            userid: this.props.userId
         }
 
         this.checkAuth = this.checkAuth.bind(this);

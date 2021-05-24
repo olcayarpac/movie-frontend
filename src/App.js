@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-ro
 
 import Login from "./components/login";
 import SignUp from "./components/signup";
-import Homepage from "./components/homepage";
 import Account from "./components/account";
 import MovieCard from "./components/movieCard";
 import MovieDetail from "./components/movieDetail";
+import SearchBox from "./components/searchBox";
 
 export default class App extends Component {
 
@@ -15,8 +15,8 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      authenticated: true,
-      userid: '607ddaf5ca9c6d3072897f2e'
+      authenticated: false,
+      //userid: '607ddaf5ca9c6d3072897f2e'
     }
 
 
@@ -26,6 +26,7 @@ export default class App extends Component {
   }
 
   changeLoginStatus(uId, uName) {
+    console.log(uId, uName)
     this.setState(
       {
         authenticated: true,
@@ -65,6 +66,9 @@ export default class App extends Component {
                       </div>
                     </li>
                     <li className="nav-item">
+                      <Link className="nav-link" to={"/recommendations"}>Recommendations</Link>
+                    </li>
+                    <li className="nav-item">
                       <Link className="nav-link" to={"/account"}>Account</Link>
                     </li>
                   </ul>
@@ -79,7 +83,9 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/">
               {
-                this.state.authenticated ? <Homepage userId={this.state.userId} /> : <Redirect push to="/signup" />
+                this.state.authenticated ?
+                    <SearchBox />
+                  : <Redirect push to="/signup" />
               }
             </Route>
 
@@ -112,13 +118,14 @@ export default class App extends Component {
             </Route>
 
             <Route path="/recommendations">
-              <MovieCard userid={this.state.userid} />
+              <MovieCard userid={this.state.userid} type='getRecommendationsByUserLikes' />
+              <MovieCard userid={this.state.userid} type='getDescriptionRecommendation' />
             </Route>
 
             <Route path="/movieDetail">
               <MovieDetail />
             </Route>
-            
+
 
           </Switch>
 

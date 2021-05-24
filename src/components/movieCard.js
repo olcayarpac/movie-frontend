@@ -14,7 +14,7 @@ export default class movieCard extends Component {
         this.getRecommendation = this.getRecommendation.bind(this);
         this.goMoviePage = this.goMoviePage.bind(this);
         this.getRecommendation();
-
+        console.log('movie card rendered')
     }
 
     getRecommendation() {
@@ -25,16 +25,17 @@ export default class movieCard extends Component {
             url: 'http://127.0.0.1:8000/api/getLikedMovieRandom',
             params: { userid: this.props.userid }
         }).then((response) => {
-            console.log(response.data)
             this.setState({movieid: response.data.movieid});
+            console.log(this.props.movieid)
             const options = {
                 method: 'GET',
-                url: 'http://127.0.0.1:8000/api/getRecommendationsByUserLikes',
-                params: { movieid: response.data.movieid }
+                url: ('http://127.0.0.1:8000/api/' + this.props.type),
+                params: { movieid: this.props.movieId ? this.props.movieId : response.data.movieid }
             };
 
             axios.request(options).then((response) => {
                 this.getMovieName()
+                console.log(response.data)
                 this.setState({ 'movies': response.data });
             }).catch((error) => {
                 console.error(error);
@@ -49,7 +50,7 @@ export default class movieCard extends Component {
         axios.request({
             method: 'GET',
             url: 'http://127.0.0.1:8000/api/getName',
-            params: { movieid: this.state.movieid }
+            params: { movieid: this.props.movieId ? this.props.movieId : this.state.movieid }
 
         }).then((response) => {
             this.setState({ 'title': response.data.title });
@@ -66,7 +67,7 @@ export default class movieCard extends Component {
     render() {
         return (
             <div className="movie-card-wrapper">
-                <div className="recInfo"><h4>Similar to {this.state.title}</h4></div>
+                {this.props.movieId ? <span></span> : <div className="recInfo"><h4>Similar to {this.state.title}</h4></div>}
                 {this.state.movies.map(item => (
                     <li className="posterLi" key={item.movieid}>
                         <img className="poster" title="hover" onClick={this.goMoviePage} id={item.movieid} alt={item.movieid} src={item.poster_url} ></img>

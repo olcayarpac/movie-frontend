@@ -85,3 +85,11 @@ body, html, .App, #root, .auth-wrapper {
   position: relative;
   top: 50px;
 }
+
+.movieitem{
+  margin-top: 100px;
+}
+
+.homeSearch{
+  margin-top: 50px;
+}

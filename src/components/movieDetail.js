@@ -4,6 +4,7 @@ import axios from "axios";
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import MovieCard from "./movieCard";
 
 
 export default class Moviepage extends Component {
@@ -14,7 +15,7 @@ export default class Moviepage extends Component {
             userid: "607ddaf5ca9c6d3072897f2e",
             movieid: window.location.href.substr(window.location.href.lastIndexOf('/') + 1),
             movie: {
-                
+
             },
             star: 0,
 
@@ -109,7 +110,7 @@ export default class Moviepage extends Component {
 
                     </div>
                     <div >
-                    <h5 style={{ color: 'black' }}>Actors : </h5> {this.state.movie.actors}
+                        <h5 style={{ color: 'black' }}>Actors : </h5> {this.state.movie.actors}
 
                     </div>
 
@@ -120,7 +121,10 @@ export default class Moviepage extends Component {
                     }
 
                     <div >
-                    <h5 style={{ color: 'black' }}>Description : </h5> { this.state.movie.description}
+                        <h5 style={{ color: 'black' }}>Description : </h5> {this.state.movie.description}
+                    </div>
+                    <div>
+                        <MovieCard userid={this.state.userid} movieId={this.state.movieid} type='getDescriptionRecommendation' />
                     </div>
                 </div>
 
