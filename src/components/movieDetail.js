@@ -101,7 +101,7 @@ export default class Moviepage extends Component {
 
                     }
                     <div className="duration">
-                        <h5 style={{ color: 'black' }}>Duration : </h5> {this.state.movie.imdb}
+                        <h5 style={{ color: 'black' }}>IMDB : </h5> {this.state.movie.imdb}
                     </div>
 
                     <div >
